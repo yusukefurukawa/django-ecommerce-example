@@ -58,3 +58,13 @@ def cart_reset(request):
     response = redirect('/ec/list/', {'products': products})
     response.delete_cookie('cart')
     return response
+
+def cart_list(request):
+    current_cart = list()   #   現在のカート(Python内部ではlist)を宣言する
+    #   カートの状態を調べて、カートの情報を取り出します
+    if not request.COOKIES.get('cart') is None:
+        current_cart = request.COOKIES.get('cart').split(',')
+
+    #   カートに入っている商品の情報を取得します
+    products = Product.objects.filter(id__in=current_cart)
+    return render(request, 'cart_list.html', {'products': products})
