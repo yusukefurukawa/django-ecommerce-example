@@ -172,6 +172,6 @@ def order_complete(request):
     """
     注文完了時に実行されるビューです。
     注文完了画面を返します。
-    """"
+    """
 
     return render_to_response('order_complete.html')
