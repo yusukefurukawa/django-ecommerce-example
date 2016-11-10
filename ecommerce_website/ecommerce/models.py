@@ -26,8 +26,8 @@ class Product(models.Model):
         return self.name
 
 class Customer(models.Model):
-    first_name = models.CharField("姓", max_length=30)
-    last_name = models.CharField("名", max_length=30)
+    first_name = models.CharField("名", max_length=30)
+    last_name = models.CharField("姓", max_length=30)
     postal_code = models.CharField("郵便番号", max_length=30)
     prefecture = models.CharField("都道府県", max_length=30)
     city = models.CharField("市区町村", max_length=30)
