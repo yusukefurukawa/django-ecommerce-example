@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^ec/cart_add/(?P<product_id>[0-9]+)/', views.cart_add),
     url(r'^ec/cart_delete/(?P<product_id>[0-9]+)/', views.cart_delete),
     url(r'^ec/cart_reset/', views.cart_reset),
-    url(r'^ec/cart_list/', views.cart_list)
+    url(r'^ec/cart_list/', views.cart_list),
+    url(r'^ec/order/', views.order)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
