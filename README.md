@@ -19,6 +19,7 @@
 
 ## URL
 
+```
 Django管理画面
 
 http://<IP or Hostname>:<port>/admin/
@@ -42,3 +43,4 @@ http://<IP or Hostname>:<port>/ec/order/
 注文完了画面
 
 http://<IP or Hostname>:<port>/ec/order_complete/
+```
