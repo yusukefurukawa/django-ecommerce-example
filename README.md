@@ -44,3 +44,9 @@ http://<IP or Hostname>:<port>/ec/order/
 
 http://<IP or Hostname>:<port>/ec/order_complete/
 ```
+
+## 初期データについて
+
+  以下のサイトの CC0 Public Domain の画像を利用しています。
+
+  https://pixabay.com
