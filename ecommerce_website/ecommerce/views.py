@@ -179,4 +179,3 @@ def order_complete(request):
     #   カートの中身を削除します
     response.delete_cookie('cart')
     return response
-    #return render('order_complete.html')
