@@ -174,4 +174,9 @@ def order_complete(request):
     注文完了画面を返します。
     """
 
-    return render_to_response('order_complete.html')
+    response = render_to_response('order_complete.html')
+
+    #   カートの中身を削除します
+    response.delete_cookie('cart')
+    return response
+    #return render('order_complete.html')
