@@ -9,21 +9,40 @@
         {% csrf_token %}
   <div class="panel panel-default">
     <div class="panel-heading">
-     {{ product.name }}
+      <b>{{ product.name }}</b>
     </div>
     <div class="panel-body">
     <div class="media" style="padding-top:20px;">
       <a class="media-left" href="#">
         <img src="../../media/{{ product.image }}" width="50" height="50" border="0">
       </a>
-      <div class="media-body">
-        {{ product.description }}
-        <h3>{{ product.price }}
+      <div class="media-body" style="padding:5px;">
+        <h4>
+        {% if product.description %}
+          {{ product.description }}
+        {% else %}
+          商品説明無し
+        {% endif %}
+        </h4>
+        <div class="text-right">
+        <h3>￥{{ product.price }}
         </h3>
+        <p>
+          {% if product.is_enabled %}
+            在庫数残り{{ product.stock }}個です。
+          {% else %}
+            現在売り切れ中です！
+          {% endif %}
+        </p>
         {{ count_form }}
         <input type="hidden" name="id" value="{{ product.id }}">
-        <input value="カートに入れる" class="" type="submit">
-    </form>
+        {% if product.is_enabled %}
+          <button class="btn btn-primary" type="submit">カートに入れる</button>
+        {% else %}
+          <button class="btn btn-primary" type="submit" disabled >カートに入れる</button>
+        {% endif %}
+      </div>
+   </form>
       </div>
     </div>
   </div>
