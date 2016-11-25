@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block content1 %}
 <div class="page-header">
     <h2>カート内商品一覧　</h2>
@@ -27,7 +28,7 @@
     <tr>
       <td>{{ product.id }}</td>
       <td>{{ product.name }}</td>
-      <td>￥{{ product.price }}</td>
+      <td>￥{{ product.price | intcomma:False }}</td>
       <td>{{ product.order_count }}</td>
       <td style="">
         <form action="../cart_delete/{{ product.id }}/" method="post">
