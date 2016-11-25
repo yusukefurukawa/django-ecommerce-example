@@ -29,7 +29,7 @@
         <h3>￥{{ product.price | intcomma:False }}
         </h3>
         <p>
-          {% if product.is_enabled %}
+          {% if product.stock > 0 %}
             在庫数残り{{ product.stock }}個です。
           {% else %}
             現在売り切れ中です！
@@ -37,7 +37,7 @@
         </p>
         {{ count_form }}
         <input type="hidden" name="id" value="{{ product.id }}">
-        {% if product.is_enabled %}
+        {% if product.stock > 0 %}
           <button class="btn btn-primary" type="submit">カートに入れる</button>
         {% else %}
           <button class="btn btn-primary" type="submit" disabled >カートに入れる</button>
