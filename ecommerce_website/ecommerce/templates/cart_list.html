@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block content1 %}
+<div class="page-header">
+    <h2>カート内商品一覧　</h2>
+</div>
+
 {% if products|length == 0 %}
 <div class="alert alert-warning" role="alert">
   現在商品はありません
@@ -27,7 +31,7 @@
       <td>{{ product.order_count }}</td>
       <td style="">
         <form action="../cart_delete/{{ product.id }}/" method="post">
-          <button type="submit" class="btn btn-danger">カートから削除</button>
+          <button type="submit" class="btn btn-danger">カートから商品を一つ削除</button>
           {% csrf_token %}
         </form>
       </td>
