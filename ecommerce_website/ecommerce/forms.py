@@ -19,9 +19,9 @@ class CustomerForm(ModelForm):
 
 class CountForm(forms.Form):
     STATUS_CHOICES = (
-            (1, "1"),   
-            (2, "2"),   
-            (3, "3"),   
-            (4, "4"),   
+            (1, "1"),
+            (2, "2"),
+            (3, "3"),
+            (4, "4"),
             (5, "5"))
     count = forms.ChoiceField(label="個数", choices=STATUS_CHOICES)

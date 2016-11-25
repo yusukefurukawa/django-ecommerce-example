@@ -30,15 +30,15 @@ def cart_add(request):
     カートに任意の商品を追加する場合に呼び出されるビューです。
     カート(cookie)に任意の商品の商品IDを追加します。
     """
-    
+
     product_id = request.POST['id']
     count = int(request.POST['count'])
     current_cart = list()   #   現在のカートを宣言します。
     #   カートの状態を調べて、カートの情報を取り出します。
-    
+
     #if hasattr(request, "session") and request.session.get('cart', "None"):
     #    current_cart = request.session.get('cart').split(',')
-    
+
     #   current_cart(list)をcookieとして保存できる形式にするため文字列にします。
     current_cart_str = product_id
     if len(current_cart) > 0:
@@ -50,7 +50,7 @@ def cart_add(request):
 
     response = redirect('/ec/list/', {'products': products})
 
-    
+
     if not "new_cart" in request.session:
         request.session["new_cart"] = {}
     if product_id in request.session["new_cart"].keys():
@@ -62,9 +62,9 @@ def cart_add(request):
         request.session["new_cart"][product_id]["id"] = Product.objects.get(pk=product_id).id
         request.session["new_cart"][product_id]["price"] = Product.objects.get(pk=product_id).price
 
-    request.session.save() 
+    request.session.save()
     print (request.session["new_cart"])
-    
+
     request.session['cart'] = current_cart_str
     return response
 
@@ -81,14 +81,14 @@ def cart_delete(request, product_id):
         print (request.session["new_cart"][product_id])
         if request.session["new_cart"][product_id]["order_count"] <= 0:
             del request.session["new_cart"][product_id]
-    request.session.save() 
+    request.session.save()
     print (request.session["new_cart"])
     products = get_list_or_404(Product)
 
     response = redirect('/ec/cart_list/', {'products': products})
 
     return response
-        
+
 
 def cart_reset(request):
     """
@@ -155,7 +155,7 @@ def order_execute(request):
     お客様情報を保存し注文された商品情報を保存します。
     """
     order_list = request.session["new_cart"]
-    if request.method == "POST": 
+    if request.method == "POST":
         form = CustomerForm(request.POST)
         if form.is_valid():
             #   送信されたお客様情報を保存します。
@@ -184,16 +184,17 @@ def order_execute(request):
                 current_cart = request.session.get('cart').split(',')
 
             products = Product.objects.filter(id__in=current_cart)
-            
-                
+
+
             for key, product in order_list.items():
                 order_product = Order_Product(order=order,
                                               product_id=int(product["id"]),
-                                              count=product["order_count"], 
+                                              count=product["order_count"],
                                               price=product["price"])
                 order_product.save()
             #   注文完了画面にリダイレクトします。
-            return redirect('/ec/order_complete/')
+            return render(request, 'order_complete.html', {'customer': customer, 'payment': payment })
+            #return redirect('/ec/order_complete/')
     else:
         form = CustomerForm()
     return render(request, 'order.html', {'form': form, 'products': 'products', 'payments': 'payments'})
@@ -210,3 +211,4 @@ def order_complete(request):
     #response.delete_cookie('cart')
     request.session.flush()
     return response
+
