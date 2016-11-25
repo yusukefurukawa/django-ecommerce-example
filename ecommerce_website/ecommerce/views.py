@@ -191,12 +191,12 @@ def order_execute(request):
                                               product_id=int(product["id"]),
                                               count=product["order_count"], 
                                               price=product["price"])
+                #print (product.stock, product["order_count"])
+                product2 = Product.objects.get(pk=product["id"])
+                product2.stock -= product["order_count"]
+                product2.save()
 
-                product = Product.objects.get(pk=product["id"])
-                product.stock -= product["order_count"]
-                product.save()
-
-                if product.stock < 0:
+                if product2.stock < 0:
                     return render(request, 'error.html', {'error_message': "{} の在庫がありません。".format(product.name)})
 
                 order_product.save()
