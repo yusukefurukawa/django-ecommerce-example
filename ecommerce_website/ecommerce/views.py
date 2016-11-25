@@ -1,8 +1,9 @@
 import datetime
-from django.shortcuts import redirect, render, get_list_or_404, render_to_response
+from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404, render_to_response
 from ecommerce.models import *
 from ecommerce.forms import CustomerForm, CountForm
 from django.forms import modelformset_factory
+from django.http import Http404
 # Create your views here.
 
 def set_cookie(response, key, value, max_age):
@@ -201,8 +202,7 @@ def order_execute(request):
 
                 order_product.save()
             #   注文完了画面にリダイレクトします。
-            return render(request, 'order_complete.html', {'customer': customer, 'payment': payment })
-            #return redirect('/ec/order_complete/')
+            return redirect('/ec/order_complete/?order_id={0}'.format(order.id))
     else:
         form = CustomerForm()
     return render(request, 'order.html', {'form': form, 'products': 'products', 'payments': 'payments'})
@@ -212,8 +212,17 @@ def order_complete(request):
     注文完了時に実行されるビューです。
     注文完了画面を返します。
     """
+    try:
+        order_id = int(request.GET.get('order_id', None))
+    except ValueError:
+        raise Http404('Order not found')
 
-    response = render_to_response('order_complete.html')
+    order = get_object_or_404(Order, pk=order_id)
+    customer = order.customer
+    payment = order.payment
+
+    response = render_to_response('order_complete.html',
+                                  {'customer': customer, 'payment': payment })
 
     #   カートの中身を削除します
     #response.delete_cookie('cart')
