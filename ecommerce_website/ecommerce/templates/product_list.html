@@ -5,6 +5,8 @@
 </div>
 <div class="row">
   {% for product in products %}
+    <form method="post" class="countform" action="../cart_add/">
+        {% csrf_token %}
   <div class="panel panel-default">
     <div class="panel-heading">
      {{ product.name }}
@@ -16,7 +18,12 @@
       </a>
       <div class="media-body">
         {{ product.description }}
-        <h3>{{ product.price }}</h3>
+        <h3>{{ product.price }}
+        </h3>
+        {{ count_form }}
+        <input type="hidden" name="id" value="{{ product.id }}">
+        <input value="カートに入れる" class="" type="submit">
+    </form>
       </div>
     </div>
   </div>

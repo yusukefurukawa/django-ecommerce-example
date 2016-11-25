@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import redirect, render, get_list_or_404, render_to_response
 from ecommerce.models import *
-from ecommerce.forms import CustomerForm
+from ecommerce.forms import CustomerForm, CountForm
 from django.forms import modelformset_factory
 # Create your views here.
 
@@ -20,17 +20,19 @@ def index(request):
     """
 
     products = get_list_or_404(Product)
-
-    response = render(request, 'product_list.html', {'products': products})
+    count_form = CountForm()
+    response = render(request, 'product_list.html', {'products': products, "count_form": count_form})
 
     return response
 
-def cart_add(request, product_id):
+def cart_add(request):
     """
     カートに任意の商品を追加する場合に呼び出されるビューです。
     カート(cookie)に任意の商品の商品IDを追加します。
     """
-
+    
+    product_id = request.POST['id']
+    count = int(request.POST['count'])
     current_cart = list()   #   現在のカートを宣言します。
     #   カートの状態を調べて、カートの情報を取り出します。
     
@@ -52,10 +54,10 @@ def cart_add(request, product_id):
     if not "new_cart" in request.session:
         request.session["new_cart"] = {}
     if product_id in request.session["new_cart"].keys():
-        request.session["new_cart"][product_id]["order_count"] += 1
+        request.session["new_cart"][product_id]["order_count"] += count
     else:
         request.session["new_cart"][product_id] = {}
-        request.session["new_cart"][product_id]["order_count"] = 1
+        request.session["new_cart"][product_id]["order_count"] = count
         request.session["new_cart"][product_id]["name"] = Product.objects.get(pk=product_id).name
         request.session["new_cart"][product_id]["id"] = Product.objects.get(pk=product_id).id
         request.session["new_cart"][product_id]["price"] = Product.objects.get(pk=product_id).price
