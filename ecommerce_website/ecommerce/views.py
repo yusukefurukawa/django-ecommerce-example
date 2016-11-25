@@ -202,7 +202,8 @@ def order_execute(request):
 
                 order_product.save()
             #   注文完了画面にリダイレクトします。
-            return redirect('/ec/order_complete/?order_id={0}'.format(order.id))
+            request.session['order_id'] = order.id
+            return redirect('/ec/order_complete/')
     else:
         form = CustomerForm()
     return render(request, 'order.html', {'form': form, 'products': 'products', 'payments': 'payments'})
@@ -213,7 +214,7 @@ def order_complete(request):
     注文完了画面を返します。
     """
     try:
-        order_id = int(request.GET.get('order_id', None))
+        order_id = request.session['order_id']
     except ValueError:
         raise Http404('Order not found')
 
