@@ -35,7 +35,7 @@
             <label class="col-sm-2 control-label"><b>決済方法: </b></label>
             <div class="col-sm-10">
         {% for payment in payments %}
-            <input type="radio" name="payment" id="payment_name" value="{{ payment.id }}" />
+            <input type="radio" name="payment" id="payment_name" value="{{ payment.id }}" required />
             <label for="payment_name">{{ payment.name }}</label><br />
         {% endfor %}
             </div>
