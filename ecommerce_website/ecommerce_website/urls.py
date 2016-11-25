@@ -17,9 +17,11 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from django.http import HttpResponseRedirect
 from ecommerce import views
 
 urlpatterns = [
+    url(r'^$', lambda r: HttpResponseRedirect('ec/list/')),
     url(r'^admin/', admin.site.urls),
     url(r'^ec/list/', views.index, name="list"),
     url(r'^ec/cart_add/', views.cart_add),
