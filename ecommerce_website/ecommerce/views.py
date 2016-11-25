@@ -121,9 +121,9 @@ def order(request):
     注文画面が表示される場合に実行されるビューです。
     カートに入っている商品情報と決済方法と注文画面を返します。
     """
+    order_list = {}
     if 'new_cart' in request.session:
         order_list = request.session["new_cart"]
-    order_list = {}
     if not order_list:
         return render(request, 'error.html', {'error_message': "注文が空です"})
 
