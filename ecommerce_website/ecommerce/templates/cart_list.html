@@ -1,27 +1,39 @@
 {% extends 'base.html' %}
 {% block content1 %}
-
-<table>
+{% if products|length == 0 %}
+<div class="alert alert-warning" role="alert">
+  現在商品はありません
+</div>
+{% else %}
+<div class="alert alert-info" role="alert">
+  現在カート内には{{ products|length }}個の商品があります.
+</div>
+<table class="table table-hover">
+  <thead>
     <tr>
-        <th>商品番号</th>
-        <th>商品名</th>
-        <th>価格</th>
-        <th>個数</th>
-        <th></th>
+      <th>商品番号</th>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>個数</th>
+      <th></th>
     </tr>
-	{% for key, product in products.items %}
-		<tr>
-			<td>{{ product.id }}</td>
-			<td>{{ product.name }}</td>
-			<td>{{ product.price }}</td>
-			<td>{{ product.order_count }}</td>
-			<td>
-				<form action="../cart_delete/{{ product.id }}/" method="post">
-				<input type="submit" value="ひとつ削除" />
-                {% csrf_token %}
-                </form>
-			</td>
-		</tr>
-	{% endfor %}
-	</table>
+  </thead>
+  {% for key, product in products.items %}
+  <tbody>
+    <tr>
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.order_count }}</td>
+      <td style="">
+        <form action="../cart_delete/{{ product.id }}/" method="post">
+          <button type="submit" class="btn btn-danger">カートから削除</button>
+          {% csrf_token %}
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
 {% endblock %}
