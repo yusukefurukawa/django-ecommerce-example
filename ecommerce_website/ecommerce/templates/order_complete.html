@@ -1,4 +1,58 @@
 {% extends 'base.html' %}
 {% block content1 %}
-<h1>注文が完了しました</h1>
+<div class="page-header">
+  <h2>注文受付完了</h2>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>以下の内容で注文を受け付けました</h4>
+  </div>
+  <div class="panel-body">
+    <form action="../order_execute/" method="post" class="h-adr form-horizontal">
+      <span class="p-country-name" style="display:none;">Japan</span>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b><label for="id_first_name">名:</label></b></label><div class="col-sm-10"><p class="form-control-static">{{ customer.first_name }}</p></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b><label for="id_last_name">姓:</label></b></label><div class="col-sm-10"><p class="form-control-static">{{ customer.last_name }}</p></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b><label for="id_postal_code">郵便番号:</label></b></label><div class="col-sm-10"><p class="form-control-static">{{ customer.postal_code }}</p></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b><label for="id_prefecture">都道府県:</label></b></label><div class="col-sm-10"><p class="form-control-static">{{ customer.prefecture}}</p></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b><label for="id_city">市区町村:</label></b></label><div class="col-sm-10"><p class="form-control-static">{{ customer.city }}</p></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b><label for="id_street1">番地など:</label></b></label><div class="col-sm-10"><p class="form-control-static">{{ customer.street1 }}</p></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b><label for="id_street2">建物名など:</label></b></label><div class="col-sm-10"><p class="form-control-stat">{{ customer.street2 }}</p></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b><label for="id_tel">電話番号:</label></b></label><div class="col-sm-10"><p class="form-control-static">{{ customer.tel }}</p></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b><label for="id_email">メールアドレス:</label></b></label><div class="col-sm-10"><p class="form-control-static">{{ customer.email }}</p></div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><b>決済方法:</b></label><p class="form-control-static">{{ payment.name }}</p>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
 {% endblock %}
