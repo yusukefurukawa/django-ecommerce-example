@@ -193,7 +193,7 @@ def order_execute(request):
                                               price=product["price"])
 
                 product = Product.objects.get(pk=product["id"])
-                product.stock -= 1
+                product.stock -= product["order_count"]
                 product.save()
 
                 if product.stock < 0:
