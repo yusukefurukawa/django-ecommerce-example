@@ -197,7 +197,7 @@ def order_execute(request):
                 product2.save()
 
                 if product2.stock < 0:
-                    return render(request, 'error.html', {'error_message': "{} の在庫がありません。".format(product.name)})
+                    return render(request, 'error.html', {'error_message': "{} の在庫がありません。".format(product2.name)})
 
                 order_product.save()
             #   注文完了画面にリダイレクトします。
