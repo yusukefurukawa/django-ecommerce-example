@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class Order_Product(models.Model):
     order = models.ForeignKey("Order")
@@ -25,6 +24,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
 class Customer(models.Model):
     first_name = models.CharField("名", max_length=30)
     last_name = models.CharField("姓", max_length=30)
@@ -40,6 +40,7 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.first_name + self.last_name
+
 
 class Order(models.Model):
     ordered_at = models.DateTimeField("注文日時", auto_now_add=True)

@@ -21,12 +21,12 @@ from ecommerce import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^ec/list/', views.index),
+    url(r'^ec/list/', views.index, name="list"),
     url(r'^ec/cart_add/(?P<product_id>[0-9]+)/', views.cart_add),
     url(r'^ec/cart_delete/(?P<product_id>[0-9]+)/', views.cart_delete),
-    url(r'^ec/cart_reset/', views.cart_reset),
-    url(r'^ec/cart_list/', views.cart_list),
-    url(r'^ec/order/', views.order),
+    url(r'^ec/cart_reset/', views.cart_reset, name="reset"),
+    url(r'^ec/cart_list/', views.cart_list, name='cart-list'),
+    url(r'^ec/order/', views.order, name="order"),
     url(r'^ec/order_execute/', views.order_execute),
     url(r'^ec/order_complete/', views.order_complete)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

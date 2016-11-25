@@ -1,14 +1,27 @@
+{% extends 'base.html' %}
+{% block content1 %}
+
 <table>
     <tr>
         <th>商品番号</th>
         <th>商品名</th>
         <th>価格</th>
+        <th>個数</th>
+        <th></th>
     </tr>
-{% for product in products %}
-    <tr>
-        <td>{{ product.id }}</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.price }}</td>
-    </tr>
-{% endfor %}
-</table>
+	{% for key, product in products.items %}
+		<tr>
+			<td>{{ product.id }}</td>
+			<td>{{ product.name }}</td>
+			<td>{{ product.price }}</td>
+			<td>{{ product.order_count }}</td>
+			<td>
+				<form action="../cart_delete/{{ product.id }}/" method="post">
+				<input type="submit" value="ひとつ削除" />
+                {% csrf_token %}
+                </form>
+			</td>
+		</tr>
+	{% endfor %}
+	</table>
+{% endblock %}
