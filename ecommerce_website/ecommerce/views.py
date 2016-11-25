@@ -191,6 +191,14 @@ def order_execute(request):
                                               product_id=int(product["id"]),
                                               count=product["order_count"], 
                                               price=product["price"])
+
+                product = Product.objects.get(pk=product["id"])
+                product.stock -= 1
+                product.save()
+
+                if product.stock < 0:
+                    return render(request, 'error.html', {'error_message': "{} の在庫がありません。".format(product.name)})
+
                 order_product.save()
             #   注文完了画面にリダイレクトします。
             return redirect('/ec/order_complete/')
