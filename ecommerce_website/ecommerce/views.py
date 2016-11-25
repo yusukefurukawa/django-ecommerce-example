@@ -215,7 +215,7 @@ def order_complete(request):
     """
     try:
         order_id = request.session['order_id']
-    except ValueError:
+    except KeyError:
         raise Http404('Order not found')
 
     order = get_object_or_404(Order, pk=order_id)
