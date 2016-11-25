@@ -19,7 +19,8 @@
 </table>
 
 <h1>お客様情報の入力</h1>
-<form action="../order_execute/" method="post">
+<form action="../order_execute/" method="post" class="h-adr">
+            <span class="p-country-name" style="display:none;">Japan</span>
             {% for field in form %}
             <b>{{ field.label_tag }}</b> {{ field }} {{ field.errors }} <br>
             {% endfor %}
@@ -31,4 +32,5 @@
         {% endfor %}
 
 </form>
+<script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 {% endblock %}
